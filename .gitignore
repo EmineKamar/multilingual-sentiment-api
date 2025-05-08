@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints
+
+# Virtual env
+venv/
+.env
+
+# DVC
+#*.dvc
+.dvc/
+data/large_dataset.csv
+.cache/
+
+# Jupyter
+*.ipynb
+
+# VS Code
+.vscode/
+
+# MLflow
+mlruns/
+mlartifacts/
+# Ignore unnecessary files
+.DS_Store
+*.log
+*.bak
+.env
+__pycache__/
+.vscode/
