@@ -22,3 +22,10 @@ data/
 # MLflow
 mlruns/
 mlartifacts/
+# Ignore unnecessary files
+.DS_Store
+*.log
+*.bak
+.env
+__pycache__/
+.vscode/
