@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 import joblib
 
 # Veriyi oku
-data = pd.read_csv("data/raw/train.csv")
+data = pd.read_csv("multilingual-sentiment-api/data/raw/train.csv")
 X = data["text"]
 y = data["label"]
 
@@ -23,6 +23,6 @@ model = LogisticRegression()
 model.fit(X_train, y_train)
 
 # Model ve vektörleştiriciyi kaydet
-joblib.dump(model, "models/model.pkl")
-joblib.dump(vectorizer, "models/vectorizer.pkl")
+joblib.dump(model, "multilingual-sentiment-api/models/model.pkl")
+joblib.dump(vectorizer, "multilingual-sentiment-api/models/vectorizer.pkl")
 
