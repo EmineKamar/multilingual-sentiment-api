@@ -1,18 +1,28 @@
 # src/train.py
 
-from src.preprocessing import load_and_preprocess_data
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+import joblib
 
-# Veriyi yükle ve işle
-X_train, X_test, y_train, y_test = load_and_preprocess_data('data/raw/sample.csv')
+# Veriyi oku
+data = pd.read_csv("data/raw/train.csv")
+X = data["text"]
+y = data["label"]
 
-# Modeli oluştur ve eğit
-model = RandomForestClassifier(n_estimators=100, random_state=42)
+# Vektörleştir
+vectorizer = CountVectorizer()
+X_vec = vectorizer.fit_transform(X)
+
+# Veriyi ayır
+X_train, X_test, y_train, y_test = train_test_split(X_vec, y, test_size=0.2, random_state=42)
+
+# Modeli eğit
+model = LogisticRegression()
 model.fit(X_train, y_train)
 
-# Modeli değerlendir
-y_pred = model.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
+# Model ve vektörleştiriciyi kaydet
+joblib.dump(model, "models/model.pkl")
+joblib.dump(vectorizer, "models/vectorizer.pkl")
 
-print("Model doğruluğu:", accuracy)

@@ -15,3 +15,20 @@ stages:
     - src/evaluate.py
     outs:
     - metrics/evaluation.txt
+  test-model:
+    cmd: python src/test.py
+    deps:
+    - data/raw/test.csv
+    - models/model.pkl
+    - models/vectorizer.pkl
+    - src/test.py
+    outs:
+    - test-results/predictions.csv
+  report:
+    cmd: python src/report.py
+    deps:
+    - src/report.py
+    - test-results/predictions.csv
+    outs:
+    - reports/classification_report.csv
+    - reports/confusion_matrix.png
