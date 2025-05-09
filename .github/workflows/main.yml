@@ -5,13 +5,15 @@
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up DVC
+    - name: Install dependencies
       run: |
+        python -m pip install --upgrade pip
+        pip install pandas
+        pip install -r requirements.txt
         pip install dvc
-        dvc pull  # Verileri DVC sunucusundan çek
 
     - name: Run training script
       run: |
-        python src/train.py  # `train.py` dosyasını `src` dizininden çalıştır
-        dvc push  # Model ve vektörleştiriciyi DVC'ye yükle
+        python src/train.py
+        dvc push  # Push model and data
 
