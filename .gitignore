@@ -9,7 +9,7 @@ venv/
 
 # DVC
 #*.dvc
-.dvc/
+#.dvc/
 data/large_dataset.csv
 .cache/
 
