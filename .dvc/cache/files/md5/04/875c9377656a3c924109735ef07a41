@@ -1,0 +1,4 @@
+text,label,prediction
+This movie was amazing!,positive,negative
+I hated the food,negative,positive
+Just okay,neutral,positive

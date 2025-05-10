@@ -1,0 +1,19 @@
+cmd: python src/report.py
+deps:
+- path: src/report.py
+  hash: md5
+  md5: 4d07d48a6bbadb021790c43ba3273464
+  size: 1004
+- path: test-results/predictions.csv
+  hash: md5
+  md5: 04875c9377656a3c924109735ef07a41
+  size: 130
+outs:
+- path: reports/classification_report.csv
+  hash: md5
+  md5: 321bf8a68a0966ff36fbbabf2a02609a
+  size: 196
+- path: reports/confusion_matrix.png
+  hash: md5
+  md5: 9bdf36a651b2fbbbe139efeba57dd987
+  size: 19731

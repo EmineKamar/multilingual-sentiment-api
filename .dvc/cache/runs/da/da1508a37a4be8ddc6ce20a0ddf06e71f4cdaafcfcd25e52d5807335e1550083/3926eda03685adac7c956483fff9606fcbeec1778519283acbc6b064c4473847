@@ -1,0 +1,23 @@
+cmd: python src/test.py
+deps:
+- path: data/raw/test.csv
+  hash: md5
+  md5: 862042a0b6bde5311578c59b9413fd5d
+  size: 92
+- path: models/model.pkl
+  hash: md5
+  md5: 75477a91fec9431f04e730c10b4d5fce
+  size: 1231
+- path: models/vectorizer.pkl
+  hash: md5
+  md5: d460b416fd095f143efea3e5ae32ed0c
+  size: 708
+- path: src/test.py
+  hash: md5
+  md5: 4eaf2df177dfa5d0a5890b8c40571648
+  size: 675
+outs:
+- path: test-results/predictions.csv
+  hash: md5
+  md5: 04875c9377656a3c924109735ef07a41
+  size: 130
