@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 import joblib
 
 # Veriyi oku
-data = pd.read_csv(r"C:/Users/emina/OneDrive/Masaüstü/vscode/multilingual-sentiment-api/data/raw/train.csv")
+data = pd.read_csv("data/raw/train.csv")
 
 X = data["text"]
 y = data["label"]

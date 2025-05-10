@@ -1,4 +1,4 @@
-name: MLOps Pipeline
+name: MLOps Pipeline 
 
 on:
   push:
@@ -46,7 +46,10 @@ jobs:
           pip install dvc[s3]
 
       - name: Configure DVC remote
-        run: dvc remote default myremote
+        run: |
+          dvc remote add -d myremote s3://multilingual-sentiment-api/data
+          dvc remote modify myremote access_key_id $AWS_ACCESS_KEY_ID
+          dvc remote modify myremote secret_access_key $AWS_SECRET_ACCESS_KEY
 
       - name: Pull data from DVC
         run: dvc pull
