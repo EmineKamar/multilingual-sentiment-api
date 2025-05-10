@@ -49,6 +49,8 @@ jobs:
         run: |
           if ! dvc remote list | grep -q myremote; then
             dvc remote add -d myremote s3://multilingual-sentiment-api/data
+          else
+            echo "Remote already exists, skipping addition."
           fi
 
       - name: Pull data from DVC
