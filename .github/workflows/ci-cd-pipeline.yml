@@ -2,15 +2,17 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   train:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: eu-central-1
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -28,13 +30,15 @@ jobs:
 
       - name: Train the model
         run: |
-          dvc pull  # Veri setini indir
-          dvc repro  # Pipeline'ı çalıştır
+          dvc pull
+          dvc repro
 
       - name: Commit and push changes
         run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "GitHub Actions"
           git add .
-          git commit -m "Auto-train model and update reports"
+          git commit -m "Auto-train model and update reports" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,6 +46,10 @@ jobs:
   report:
     runs-on: ubuntu-latest
     needs: train
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: eu-central-1
     steps:
       - name: Check out code
         uses: actions/checkout@v2
