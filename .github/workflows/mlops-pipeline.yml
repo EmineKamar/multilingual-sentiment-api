@@ -22,7 +22,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install dvc
+        pip install dvc[s3]  # Install DVC with s3 support
 
   train:
     runs-on: ubuntu-latest
@@ -31,10 +31,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Run training script
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
       run: |
-        python src/train.py
-        dvc push  # Push model and data
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install dvc[s3]  # Install DVC with s3 support
+
+    - name: Configure DVC remote
+      run: |
+        dvc remote add -d myremote s3://multilingual-sentiment-api/data  # Add remote
+        dvc remote modify myremote access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}  # AWS keys
+        dvc remote modify myremote secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # AWS keys
+
+    - name: Pull data from DVC
+      run: dvc pull  # Pull required data for training
+
+    - name: Run training script
+      run: python src/train.py
+
+    - name: Push model and data to DVC
+      run: dvc push  # Push model and data to DVC remote
 
   evaluate:
     runs-on: ubuntu-latest
@@ -42,6 +63,20 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install dvc[s3]  # Install DVC with s3 support
+
+    - name: Pull model/data from DVC
+      run: dvc pull  # Pull model and data for evaluation
 
     - name: Run evaluation script
       run: python src/evaluate.py
@@ -53,6 +88,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install dvc[s3]  # Install DVC with s3 support
+
+    - name: Pull model/data from DVC
+      run: dvc pull  # Pull model and data for testing
+
     - name: Run testing script
       run: python src/test.py
 
@@ -62,6 +111,20 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install dvc[s3]  # Install DVC with s3 support
+
+    - name: Pull model/data from DVC
+      run: dvc pull  # Pull model and data for report generation
 
     - name: Generate report
       run: python src/report.py
