@@ -1,5 +1,4 @@
 [core]
     remote = myremote
-
-[remote "myremote"]
-    url = s3://multilingual-sentiment-api
+['remote "myremote"']
+    url = s3://multilingual-sentiment-api/data
