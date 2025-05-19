@@ -51,19 +51,15 @@ stages:
       hash: md5
       md5: 75477a91fec9431f04e730c10b4d5fce
       size: 1231
-    - path: models/vectorizer.pkl
-      hash: md5
-      md5: d30195f3fcc1039cdd82572ae792ac07
-      size: 708
     - path: src/test.py
       hash: md5
-      md5: ad59f4ba8c46519f9ff839e821d859a3
-      size: 1596
+      md5: 63f511e004ab2c3c7cd4f779e4689bef
+      size: 1768
     outs:
-    - path: test-results/predictions.csv
+    - path: metrics/test_metrics.json
       hash: md5
-      md5: 04875c9377656a3c924109735ef07a41
-      size: 130
+      md5: f5d27ee348c995b8e2230e6d5576e7cd
+      size: 83
   report:
     cmd: python src/report.py
     deps:

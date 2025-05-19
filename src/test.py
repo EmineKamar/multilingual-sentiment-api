@@ -58,3 +58,7 @@ os.makedirs("test-results", exist_ok=True)
 results.to_csv("test-results/predictions.csv", index=False)
 
 print("📄 Tahminler 'test-results/predictions.csv' dosyasına kaydedildi.")
+# DVC için test_metrics.json çıktısını oluştur
+os.makedirs("metrics", exist_ok=True)
+with open("metrics/test_metrics.json", "w") as f:
+    json.dump(metrics, f)
