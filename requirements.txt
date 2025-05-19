@@ -1,3 +1,4 @@
+mlflow==2.22.0
 pandas
 scikit-learn
 matplotlib
