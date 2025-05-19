@@ -34,3 +34,12 @@ stages:
     outs:
     - reports/classification_report.csv
     - reports/confusion_matrix.png
+  predict-model:
+    cmd: python src/predict.py
+    deps:
+    - data/raw/test.csv
+    - models/model.pkl
+    - models/vectorizer.pkl
+    - src/predict.py
+    outs:
+    - test-results/predictions.csv
