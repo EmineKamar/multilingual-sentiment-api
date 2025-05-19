@@ -2,33 +2,36 @@ stages:
   train-model:
     cmd: python src/train.py
     deps:
-    - data/raw/train.csv
-    - src/train.py
+      - data/raw/train.csv
+      - src/train.py
     outs:
-    - models/model.pkl
-    - models/vectorizer.pkl
+      - models/model.pkl
+      - models/vectorizer.pkl
+
   evaluate-model:
     cmd: python src/evaluate.py
     deps:
-    - models/model.pkl
-    - models/vectorizer.pkl
-    - src/evaluate.py
+      - models/model.pkl
+      - models/vectorizer.pkl
+      - src/evaluate.py
     outs:
-    - metrics/evaluation.txt
+      - metrics/evaluation.txt
+
   test-model:
     cmd: python src/test.py
     deps:
-    - data/raw/test.csv
-    - models/model.pkl
-    - models/vectorizer.pkl
-    - src/test.py
+      - data/raw/test.csv
+      - models/model.pkl
+      - models/vectorizer.pkl
+      - src/test.py
     outs:
-    - test-results/predictions.csv
+      - test-results/predictions.csv
+
   report:
     cmd: python src/report.py
     deps:
-    - src/report.py
-    - test-results/predictions.csv
+      - src/report.py
+      - test-results/predictions.csv
     outs:
-    - reports/classification_report.csv
-    - reports/confusion_matrix.png
+      - reports/classification_report.csv
+      - reports/confusion_matrix.png

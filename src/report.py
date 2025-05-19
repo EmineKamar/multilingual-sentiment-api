@@ -1,3 +1,5 @@
+# src/report.py
+
 import pandas as pd
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
@@ -18,9 +20,9 @@ os.makedirs("reports", exist_ok=True)
 report_df.to_csv("reports/classification_report.csv")
 
 # Confusion matrix görselleştir
-conf_mat = confusion_matrix(pred_df["label"], pred_df["prediction"], labels=["positive", "neutral", "negative"])
+conf_mat = confusion_matrix(pred_df["label"], pred_df["prediction"], labels=pred_df["label"].unique())
 plt.figure(figsize=(6,4))
-sns.heatmap(conf_mat, annot=True, fmt="d", xticklabels=["positive", "neutral", "negative"], yticklabels=["positive", "neutral", "negative"])
+sns.heatmap(conf_mat, annot=True, fmt="d", xticklabels=pred_df["label"].unique(), yticklabels=pred_df["label"].unique())
 plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.title("Confusion Matrix")
